@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script src="velocity.min.js"></script>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<style>
+* {padding:0;margin:0;}
+body {
+  overflow:hidden;
+  
+  }
+  #wrap {    
+  
+   background: url(bg.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  }
+ 
+#main {background:black; width:100%; height:100vh; position:relative; transition: background 2s; opacity:0.9;}
+.rain {width:2px; height:6px; background:grey; transform:rotate(10deg); position:absolute; top:0; left:100px;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+
+#metal{width:100vw; height:100px; background:red;box-shadow:inset 5px 4px 30px #000;  position:absolute;top:0; left:0;}
+</style>
+</head>
+
+<body>
+<div id="wrap">
+<div id="main">
+<div class="main"></div>
+<!--<div id="metal"></div>-->
+</div>
+</div>
+
+
+<script>
+//create random function with min and max parameters
+function randomRange(min,max) {
+  return Math.floor(Math.random() * (max-min)+min);
+};
+
+//Init the rain
+//------------------
+function init(){
+var main = document.getElementById("main");
+var div = document.createElement("div");
+  div.className = "rain";
+  div.setAttribute("style", "left:"+ randomRange(0,100)+"vw; width: "+ randomRange(1,10) + "px");
+  div.style.background = "rgb("+ randomRange(0,170) + "," + randomRange(0,170) + "," + randomRange(0,170) + ")";
+  main.appendChild(div);
+  $(div).velocity({top: "99vh"},randomRange(600,3000),"linear",function(){
+  $(div).remove()
+  });
+
+  
+}
+setInterval(function(){init()},0);
+
+function light(){
+	
+var main = document.getElementById("main");
+main.setAttribute("style","background:white");	
+
+}
+
+function dark(){
+	
+var main = document.getElementById("main");
+main.setAttribute("style","background:black");	
+
+}
+
+setInterval(function(){light()},randomRange(5000,10000));
+
+setInterval(function(){dark()},randomRange(1000,2000));
+
+
+//create a div
+//give it a class of raindrop
+//animate it in different speeds
+</script>
+</body>
+</html>
